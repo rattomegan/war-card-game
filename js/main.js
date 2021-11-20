@@ -77,17 +77,17 @@ const cBackEl = document.getElementById('c-pile');
 
 // init();
 
-// function init() {
-//   buildMasterDeck();
-//   getNewShuffledDeck();
-//   // update game deck by splitting array with splice
-//   function dealDeck() {
-//     player1.pile = newShuffledDeck.splice(0, (newShuffledDeck.length / 2))
-//     console.log(player1.pile)
-//     computer.pile = newShuffledDeck.splice();
-//   };
-//   dealDeck();
-// }  
+function init() {
+  buildMasterDeck();
+  getNewShuffledDeck();
+  // update game deck by splitting array with splice
+  function dealDeck() {
+    player1.pile = newShuffledDeck.splice(0, (newShuffledDeck.length / 2))
+    console.log(player1.pile)
+    computer.pile = newShuffledDeck.splice();
+  };
+  dealDeck();
+}  
 
 function getNewShuffledDeck() {
   // Create a copy of the masterDeck (leave masterDeck untouched!)
