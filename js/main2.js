@@ -19,23 +19,17 @@ const masterDeck = buildMasterDeck();
 // // this variable is updated in the original renderNewShuffledDeck function.
 // let shuffledDeck;
 
-const player1 = {
-    // holds deck of cards to be played and cards that are won will be pushed to the end of the array
-    pile: [],
-    // holds the current card played
-    playCard: [],
-    // the four war cards in a war scenario
-    warCards: [],
-}
 
-const computer = {
-    pile: [],
-    playCard: [],
-    warCards: [],
-}
+// WonPiles will need to be shuffled at some point.
+let pPile, pCard, pWarPile;
+let cPile, cCard, cWarPile;
+let pWinPile = [];
+let cWinPile = [];
+
 
 // I've moved this out of the getNewShuffledDeck function and made it a let variable so it can change - this doesn't actually matter. it works as a const variable as well.
 const newShuffledDeck = [];
+
 
 /*----- cached element references -----*/
 
@@ -88,17 +82,59 @@ function getNewShuffledDeck() {
 
   function init() {
     buildMasterDeck();
-    getNewShuffledDeck();
-    // update game deck by splitting array with splice
-    function dealDeck() {
-      player1.pile = newShuffledDeck.splice(0, (newShuffledDeck.length / 2))
-    //   console.log(player1.pile);
-      computer.pile = newShuffledDeck.splice(0, newShuffledDeck.length);
-    //   console.log(computer.pile);
-    //   console.log(newShuffledDeck)
-    };
     dealDeck();
+    //this may need to be moved out of the init function
+
+    // need to add render game board here. still need to write that function below.
   }  
   
   init();
+
+
+  function dealDeck() {
+    getNewShuffledDeck();  
+    // here we are splitting the newShuffledDeck in 2 and assigning to the game piles
+    pPile = newShuffledDeck.splice(0, (newShuffledDeck.length / 2))
+    cPile = newShuffledDeck.splice(0, newShuffledDeck.length);
+    // newShuffleDeck is now an empty array since we spliced out all the elements.
+  };
   
+
+
+
+  function handleTurn() {
+      // when player clicks their card deck or play card button (this will be referenced from an event listener.)
+    // check for win scenario  
+    if (pPile.length === 0 || cPile.length === 0) return getWinner();
+      // pull first value from player pile put it in play card array.
+    // these methods are not working - pausing to continue with game logic
+    pCard = pPile.shift();
+    cCard = cPile.shift();
+    if (pCard.value === cCard.value) return runWar;
+    return pCard.value > cCard.value ? pWinPile.push(pCard, cCard) : cWinPile.push(pCard, cCard);
+    };
+
+    
+
+    // referenced in handle turn tie scenario
+    function runWar() {
+        // if (pPile.length < 4) shuffleWinPile(pWinPile);
+        // if (cPile.length < 4) shuffleWinPile(cWinPile);
+        pWarPile = pPile.slice(0, 4);
+        cWarPile = cPile.slice(0, 4);
+        // it is okay for this to be push right now since the war pile will be updated when the function reruns and the old values will be updated.
+        return pWarPile[3].value > cWarPile[3].value ? pWinPile.push(pWarPile, cWarPile) : cWinPile.push(pWarPile, cWarPile)
+    }
+
+    function shuffleWinPile(pile) {
+
+    }
+    
+      // player1Card = player1.pile.shift();
+    // computer.playCard = computer.pile.splice(0, 1);
+    // console.log(player1.playCard)
+    // console.log(player1.pile)
+    // pull first value from computer pil and put in computer card array.
+      // compare the two values.
+
+      // find the greater value card and push both cards to the end of the winner's pile array
