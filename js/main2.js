@@ -23,7 +23,7 @@ const masterDeck = buildMasterDeck();
 // WonPiles will need to be shuffled at some point.
 let pPile, pCard, pWarPile;
 let cPile, cCard, cWarPile;
-let winner = null; // will eventually be p or c
+let scores, result, winner; // will eventually be p or c
 
 
 
@@ -34,14 +34,14 @@ const newShuffledDeck = [];
 /*----- cached element references -----*/
 
 const warEls = {
-    pCard1: '',
-    pCard2: '',
-    pCard3: '',
-    pCard4: '',
-    cCard1: '',
-    cCard2: '',
-    cCard3: '',
-    cCard4: '',
+    p1: '',
+    p2: '',
+    p3: '',
+    p4: '',
+    c1: '',
+    c2: '',
+    c3: '',
+    c4: '',
   }
   
   const pCardEl = document.getElementById('p-card1');
@@ -83,7 +83,15 @@ function buildMasterDeck() {
 function init() {
   buildMasterDeck();
   dealDeck();
-  //this may need to be moved out of the init function
+  scores = {
+    p: 0,
+    c: 0
+  }
+  result = {
+    p: 0,
+    c: 0
+  }
+  winner = null;
 
   // need to add render game board here. still need to write that function below.
 }  
@@ -115,34 +123,69 @@ function handleTurn() {
   };
 
     
+// // This is my original runWar function that includes warPiles. I have removed them to test just having one play pile.
+// function runWar() {
+//     // the render function here will need to reference the index number of the war array to match the id of the card <div>
+//     // if (pPile.length < 4 || cPile.length < 4) run if statemetns below but for the lenght of the array. .length + 1 to include last array index;
+//     pWarPile = pPile.splice(0, 4);
+//     cWarPile = cPile.splice(0, 4);
+//     // it is okay for this to be push right now since the war pile will be updated when the function reruns and the old values will be updated.
+//     // this is currently pushing the whole array into the other array, creating separate arrays within the winPile. 
+//     // return pWarPile[3].value > cWarPile[3].value ? pWinPile.push(pWarPile, cWarPile) : cWinPile.push(pWarPile, cWarPile)
+//     if (pWarPile[3].value === cWarPile[3].value) {
+//       runWar();
+//     } else if (pWarPile[3].value > cWarPile[3].value) {
+//       winner = "p";  
+//       pWarPile.forEach(function(card) {
+//             pPile.push(card);
+//         })
+//         cWarPile.forEach(function(card){
+//             pPile.push(card);
+//         })
+//     } else {
+//         winner = "c";
+//         pWarPile.forEach(function(card) {
+//             cPile.push(card);
+//         })
+//         cWarPile.forEach(function(card){
+//             cPile.push(card);
+//         })
+//       }
+//     // I'm not sure what to have it return here.
+//     return winner // maybe return a render function here? where the cards physically move to the win pile and off the board.
+// };
+
+
 
 function runWar() {
-    // the render function here will need to reference the index number of the war array to match the id of the card <div>
-    // if (pPile.length < 4 || cPile.length < 4) run if statemetns below but for the lenght of the array. .length + 1 to include last array index;
-    pWarPile = pPile.splice(0, 4);
-    cWarPile = cPile.splice(0, 4);
-    // it is okay for this to be push right now since the war pile will be updated when the function reruns and the old values will be updated.
-    // this is currently pushing the whole array into the other array, creating separate arrays within the winPile. 
-    // return pWarPile[3].value > cWarPile[3].value ? pWinPile.push(pWarPile, cWarPile) : cWinPile.push(pWarPile, cWarPile)
-    if (pWarPile[3].value === cWarPile[3].value) {
-      runWar();
-    } else if (pWarPile[3].value > cWarPile[3].value) {
-        pWarPile.forEach(function(card) {
-            pPile.push(card);
-        })
-        cWarPile.forEach(function(card){
-            pPile.push(card);
-        })
-    } else {
-        pWarPile.forEach(function(card) {
-            cPile.push(card);
-        })
-        cWarPile.forEach(function(card){
-            cPile.push(card);
-        })
-      }
-    // I'm not sure what to have it return here.
-    return // maybe return a render function here? where the cards physically move to the win pile and off the board.
+  // the render function here will need to reference the index number of the war array to match the id of the card <div>
+  // if (pPile.length < 4 || cPile.length < 4) run if statemetns below but for the lenght of the array. .length + 1 to include last array index;
+  pCard = pPile.splice(0, 4);
+  cCard = cPile.splice(0, 4);
+  // it is okay for this to be push right now since the war pile will be updated when the function reruns and the old values will be updated.
+  // this is currently pushing the whole array into the other array, creating separate arrays within the winPile. 
+  // return pWarPile[3].value > cWarPile[3].value ? pWinPile.push(pWarPile, cWarPile) : cWinPile.push(pWarPile, cWarPile)
+  if (pCard[3].value === cCard[3].value) {
+    runWar();
+  } else if (pCard[3].value > cCard[3].value) {
+    winner = "p";  
+    pCard.forEach(function(card) {
+          pPile.push(card);
+      })
+      cCard.forEach(function(card){
+          pPile.push(card);
+      })
+  } else {
+      winner = "c";
+      pCard.forEach(function(card) {
+          cPile.push(card);
+      })
+      cCard.forEach(function(card){
+          cPile.push(card);
+      })
+    }
+  // I'm not sure what to have it return here.
+  return winner // maybe return a render function here? where the cards physically move to the win pile and off the board.
 };
 
 function shuffleWinPile(pile) {
