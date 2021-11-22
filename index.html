@@ -11,46 +11,54 @@
     <title>War Game</title>
 </head>
 <body>
-    <div class="grid-container">
-        <header>Play War</header>
-        <div id="master-deck"></div>
-        <section id="player">
+    <div>
+        <div class="grid-container">
+            <h1>The Game of War</h1>
+            <div id="rules">
+                <h4>The Rules:</h4>
+                <p><span> THE DEAL:</span> The deck is divided evenly, with each player receiving 26 cards</p>
+    
+                <p><span>THE PLAY:</span> Each player turns up a card at the same time and the player with the higher card takes both cards and puts them, face down, on the bottom of his stack.
+                <br>
+                If the cards are the same rank, it is War. Each player turns up three cards face down and one card face up. The player with the higher card takes both piles. If the turned-up cards are again the same rank, each player places another three cards face down and turns another card face up, the higher ranked card taking all cards played.</p>
+ 
+                <p><span>THE SCORE:</span> The game ends when one player has won all the cards.</p>
+            </div>
+            <div id="master-deck"></div>
+            <div id="p-card-count">Card Count</div>
+            <div id="c-card-count">Card Count</div>
+
             <div id="p-pile" class="card-container card-back"></div>
+            <div id="p-win-pile"></div>
             <div id="p-card1" class="card-container"></div>
-        </section>
 
-        <section id="computer">
+
+        
             <div id="c-pile" class="card-container card-back"></div>
-            <div id="c-card1" class="card-container"></div>
-            <div class="card s05" class="card-container"></div>
-            <div class="card back" class="card-container"></div>
-            <div class="card back-red" class="card-container"></div>
-        </section>  
+            <div id="c-win-pile"></div>
+            <div id="c-card1 card-container"></div>
 
-        <div id="war">
-            <section id="p-war">
-                <div id="p-war0" class="card-back">p-war1</div>
-                <div id="p-war1" class ="card-back">p-war3</div>
-                <div id="p-war2" class ="card-back">p-war3</div>
-                <div id="p-war3">p-war4</div>
-            </section>
+            <div class="card s05 card-container"></div>
+            <div class="card back card-container"></div>
+            <div class="card back-red card-container"></div>
 
-            <section id="c-war">
-                <div id="p-war0" class ="card-back"></div>
-                <div id="p-war1" class ="card-back"></div>
-                <div id="p-war2>" class ="card-back"></div>
-                <div id="p-war3"></div>
-            </section>
 
-            <section class="win-piles">
-                <div id="p-win-pile"></div>
-                <div id="c-win-pile"></div>
-            </section>
-        </div>
 
-        <button id="start-game" class="button">Start Game</button>
-        <button id="play-card" class="button">Play Card</button>
-        <button id="replay" class="button">Replay</button>
-    </div>   
+            <div id="p-war0 card-back">p-war1</div>
+            <div id="p-war1 card-back">p-war3</div>
+            <div id="p-war2 card-back">p-war3</div>
+            <div id="p-war3">p-war4</div>
+
+
+
+            <div id="p-war0 card-back"></div>
+            <div id="p-war1 card-back"></div>
+            <div id="p-war2 card-back"></div>
+            <div id="p-war3"></div>
+
+            
+            <button id="start-game" class="button">New Game</button>
+        </div>   
+    </div>    
 </body>
 </html>
