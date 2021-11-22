@@ -129,20 +129,20 @@ function getNewShuffledDeck() {
         if (pWarPile[3].value > cWarPile[3].value) {
             pWarPile.forEach(function(card) {
                 pWinPile.push(card);
-            });
+            })
             cWarPile.forEach(function(card){
                 pWinPile.push(card);
-            });
+            })
         } else {
             pWarPile.forEach(function(card) {
                 cWinPile.push(card);
-            });
+            })
             cWarPile.forEach(function(card){
                 cWinPile.push(card);
-            });
+            })
         }
         // I'm not sure what to have it return here.
-        return cWinPile;
+        return // maybe return a render function here? where the cards physically move to the win pile and off the board.
     };
 
     function shuffleWinPile(pile) {
