@@ -1,0 +1,30 @@
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 0.5fr 1fr 1fr 1fr 0.5fr;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+/* will need to update this as I arrange the page. all cards are grouped in one box as they are considered one grid item. will need to create grid-item class as I reorganize */
+.grid > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    background-color:peachpuff;
+    grid-column: 1 / span 8;
+    grid-row: 1 / span 1;
+    font-size: 40px;
+    /* should remove this and make the actual row a certain height  */
+    max-height: 50px; 
+}
+
+

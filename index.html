@@ -4,44 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="css/card-deck-css/css/cardstarter.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <script defer src="js/main2.js"></script>
-    <title>Document</title>
+    <title>War Game</title>
 </head>
 <body>
-    <h1>Want to Play War?</h1>
-    <div id="master-deck"></div>
-    <section id="player">
-        <div id="p-pile" class="card-container card-back"></div>
-        <div id="p-card1" class="card-container"></div>
-    </section>
-
-    <section id="computer">
-        <div id="c-pile" class="card-container card-back"></div>
-        <div id="c-card1" class="card-container"></div>
-        <div class="card s05" class="card-container"></div>
-    </section>  
-
-    <div id="war">
-        <section id="p-war">
-            <div id="p-war1">p-war1</div>
-            <div id="p-war2">p-war3</div>
-            <div id="p-war3">p-war3</div>
-            <div id="p-war4">p-war4</div>
+    <div class="grid-container">
+        <header>Play War</header>
+        <div id="master-deck"></div>
+        <section id="player">
+            <div id="p-pile" class="card-container card-back"></div>
+            <div id="p-card1" class="card-container"></div>
         </section>
 
-        <section id="c-war">
-            <div id="p-war1"></div>
-            <div id="p-war2"></div>
-            <div id="p-war3"></div>
-            <div id="p-war4"></div>
-        </section>
-    </div>
+        <section id="computer">
+            <div id="c-pile" class="card-container card-back"></div>
+            <div id="c-card1" class="card-container"></div>
+            <div class="card s05" class="card-container"></div>
+            <div class="card back" class="card-container"></div>
+            <div class="card back-red" class="card-container"></div>
+        </section>  
 
-    <button id="start-game">Start Game</button>
-    <button id="play-card">Play Card</button>
-    <button id="replay">Replay</button>
-    
+        <div id="war">
+            <section id="p-war">
+                <div id="p-war0" class="card-back">p-war1</div>
+                <div id="p-war1" class ="card-back">p-war3</div>
+                <div id="p-war2" class ="card-back">p-war3</div>
+                <div id="p-war3">p-war4</div>
+            </section>
+
+            <section id="c-war">
+                <div id="p-war0" class ="card-back"></div>
+                <div id="p-war1" class ="card-back"></div>
+                <div id="p-war2>" class ="card-back"></div>
+                <div id="p-war3"></div>
+            </section>
+
+            <section class="win-piles">
+                <div id="p-win-pile"></div>
+                <div id="c-win-pile"></div>
+            </section>
+        </div>
+
+        <button id="start-game" class="button">Start Game</button>
+        <button id="play-card" class="button">Play Card</button>
+        <button id="replay" class="button">Replay</button>
+    </div>   
 </body>
 </html>

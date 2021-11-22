@@ -118,13 +118,32 @@ function getNewShuffledDeck() {
 
     // referenced in handle turn tie scenario
     function runWar() {
+        // the render function here will need to reference the index number of the war array to match the id of the card <div>
         // if (pPile.length < 4) shuffleWinPile(pWinPile);
         // if (cPile.length < 4) shuffleWinPile(cWinPile);
-        pWarPile = pPile.slice(0, 4);
-        cWarPile = cPile.slice(0, 4);
+        pWarPile = pPile.splice(0, 4);
+        cWarPile = cPile.splice(0, 4);
         // it is okay for this to be push right now since the war pile will be updated when the function reruns and the old values will be updated.
-        return pWarPile[3].value > cWarPile[3].value ? pWinPile.push(pWarPile, cWarPile) : cWinPile.push(pWarPile, cWarPile)
-    }
+        // this is currently pushing the whole array into the other array, creating separate arrays within the winPile. 
+        // return pWarPile[3].value > cWarPile[3].value ? pWinPile.push(pWarPile, cWarPile) : cWinPile.push(pWarPile, cWarPile)
+        if (pWarPile[3].value > cWarPile[3].value) {
+            pWarPile.forEach(function(card) {
+                pWinPile.push(card);
+            });
+            cWarPile.forEach(function(card){
+                pWinPile.push(card);
+            });
+        } else {
+            pWarPile.forEach(function(card) {
+                cWinPile.push(card);
+            });
+            cWarPile.forEach(function(card){
+                cWinPile.push(card);
+            });
+        }
+        // I'm not sure what to have it return here.
+        return cWinPile;
+    };
 
     function shuffleWinPile(pile) {
 
