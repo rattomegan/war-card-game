@@ -10,6 +10,18 @@ const cardLookUp = {
     'A': 14,
 };
 
+const textLookup = {
+    button: {
+      new: "New Game",
+      play: "Play Card",
+      take: "Collect Cards",
+      give: "Surrender Cards",
+      war: "Go to War",
+      reveal: "Reveal Losses",
+    }
+
+}
+
 // Build a 'master' deck of 'card' objects used to create shuffled decks
 // this is now an array of objects with face and value as keys.
 const masterDeck = buildMasterDeck();
@@ -32,6 +44,7 @@ const newShuffledDeck = [];
 
 
 /*----- cached element references -----*/
+
 
 const cardEls = {
     p: {
@@ -139,7 +152,7 @@ function handleTurn(evt) {
   renderCards(cHand, cardEls.c);
   if (pHand[0].value === cHand[0].value) return runWar();
 
-  // update button text to "take cards" - this works
+  // update button text to "take cards" - this worksgitcd
   buttonEl.textContent = 'Take Cards'
 
   // update these to splice instead of spread push. could also do pHand.length instead of (0, 1) - tried this below and got an infinite loop in running war.
