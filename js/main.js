@@ -9,23 +9,26 @@ const cardLookUp = {
     'K': 13,
     'A': 14,
 };
-
-const textLookup = {
-    button: {
-      new: "New Game",
-      play: "Play Card",
-      take: "Collect Cards",
-      give: "Surrender Cards",
-      war: "Go to War",
-      reveal: "Reveal Losses",
-    }
-
-}
-
 // Build a 'master' deck of 'card' objects used to create shuffled decks
 // this is now an array of objects with face and value as keys.
 const masterDeck = buildMasterDeck();
 
+
+// not sure I need this lookup. could add back in later - struggling with calling these objects within my functions.
+const textLookup = {
+    button: {
+      new: 'New Game',
+      play: 'Play Card',
+      take: 'Collect Cards',
+      give: 'Surrender Cards',
+      war: 'Go to War',
+      revealLoss: 'Reveal Losses',
+      revealGain: 'Reveal Gains',
+    },
+    alerts: {
+      // result: `Card ${cardRank[winner] beats ${cardRank[loser????]. The ${winner} takes ${cHand.length + pHand.length} cards.`
+    }
+}
 
 /*----- app's state (variables) -----*/
 // // this variable is updated in the original renderNewShuffledDeck function.
@@ -44,11 +47,8 @@ const newShuffledDeck = [];
 
 
 /*----- cached element references -----*/
-
-
 const cardEls = {
     p: {
-      pile: document.getElementById('p-pile'),
       0: document.getElementById('p-card0'),
       1: document.getElementById('p-card1'),
       2: document.getElementById('p-card2'),
@@ -56,41 +56,36 @@ const cardEls = {
       4: document.getElementById('p-card4'),
     },
     c: {
-      pile: document.getElementById('c-pile'),
       0: document.getElementById('c-card0'),
       1: document.getElementById('c-card1'),
       2: document.getElementById('c-card2'),
       3: document.getElementById('c-card3'),
       4: document.getElementById('c-card4'),
+    },
+    piles: {
+      p: document.getElementById('p-pile'),
+      c: document.getElementById('c-pile'),
     }
-  }
+};
 
 const scoreEls = {
   p: document.getElementById('p-score'),
   c: document.getElementById('c-score'),
-}
+};
 
-  // button will change text depending on point in game
+const textEls = {
+  rules: document.getElementById('rules'),  
+  pWin: document.getElementById('p-win-message'),
+  cWin: document.getElementById('c-win-message'),
+};
+
+// button will change text depending on point in game
 const buttonEl = document.getElementById('button');
 
 /*----- event listeners -----*/
-buttonEl.addEventListener('click', handleTurn)
+buttonEl.addEventListener('click', handleClick)
 
 /*----- functions -----*/
-function getNewShuffledDeck() {
-    // Create a copy of the masterDeck (leave masterDeck untouched!)
-    const tempDeck = [...masterDeck];
-    // commenting below line out temporarily as I've moved it outside of this function.
-    // const newShuffledDeck = [];
-    while (tempDeck.length) {
-      // Get a random index for a card still in the tempDeck
-      const rndIdx = Math.floor(Math.random() * tempDeck.length);
-      // Note the [0] after splice - this is because splice always returns an array and we just want the card object in that array
-      newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
-    }
-    return newShuffledDeck;
-  }
-  
 function buildMasterDeck() {
   const deck = [];
   // Use nested forEach to generate card objects
@@ -107,6 +102,30 @@ function buildMasterDeck() {
   return deck;
 }
 
+function getNewShuffledDeck() {
+    // Create a copy of the masterDeck (leave masterDeck untouched!)
+    const tempDeck = [...masterDeck];
+    // commenting below line out temporarily as I've moved it outside of this function.
+    // const newShuffledDeck = [];
+    while (tempDeck.length) {
+      // Get a random index for a card still in the tempDeck
+      const rndIdx = Math.floor(Math.random() * tempDeck.length);
+      // Note the [0] after splice - this is because splice always returns an array and we just want the card object in that array
+      newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
+    }
+    return newShuffledDeck;
+};
+  
+
+//could probably put this whole function back inot the init function.
+function dealDeck() {
+  getNewShuffledDeck();  
+  // here we are splitting the newShuffledDeck in 2 and assigning to the game piles
+  pPile = newShuffledDeck.splice(0, (newShuffledDeck.length / 2))
+  cPile = newShuffledDeck.splice(0, newShuffledDeck.length);
+  // newShuffleDeck is now an empty array since we spliced out all the elements.
+};
+
 function init() {
   buildMasterDeck();
   dealDeck();
@@ -121,72 +140,82 @@ function init() {
   cHand = [];
   pHand = [];
   winner = null;
-
+  renderScores();
+  buttonEl.innerText = textLookup.button.play;
+  // remove rules from the page
+  textEls.rules.innerText = '';
   // need to add render game board here. still need to write that function below.
 }  
 
-init();
-
-
-function dealDeck() {
-  getNewShuffledDeck();  
-  // here we are splitting the newShuffledDeck in 2 and assigning to the game piles
-  pPile = newShuffledDeck.splice(0, (newShuffledDeck.length / 2))
-  cPile = newShuffledDeck.splice(0, newShuffledDeck.length);
-  // newShuffleDeck is now an empty array since we spliced out all the elements.
-};
-  
+// This will be removed and initialized when a player clicks "New Game" Button
+// init();
 
 
 
-function handleTurn(evt) {
-    // when player clicks their card deck or play card button (this will be referenced from an event listener.)
-  // check for win scenario  
-  if (pPile.length === 0 || cPile.length === 0) return getWinner();
-    // pull first value from player pile put it in play card array.
-  // these methods are not working - pausing to continue with game logic
+function handleTurn() {
+  // if (pPile.length === 0 || cPile.length === 0) return getWinner();
   pHand.push(pPile.shift());
   cHand.push(cPile.shift());
+  renderCards();
+  if (pHand[0].value === cHand[0].value) return buttonEl.textContent = textLookup.button.war;
+  pHand[0].value > cHand[0].value ? winner = 'p' : winner = 'c';
+  winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;
+  // TO DO ------ results text content HERE o equal the value of the winner card over the loser card
+  };
 
-  renderCards(pHand, cardEls.p);
-  renderCards(cHand, cardEls.c);
-  if (pHand[0].value === cHand[0].value) return runWar();
 
-  // update button text to "take cards" - this worksgitcd
-  buttonEl.textContent = 'Take Cards'
-
-  // update these to splice instead of spread push. could also do pHand.length instead of (0, 1) - tried this below and got an infinite loop in running war.
-
-  pHand[0].value > cHand[0].value ? pPile.push(...pHand.splice(0, 1), ...cHand.splice(0, 1)) : cPile.push(...pHand.splice(0, 1), ...cHand.splice(0, 1));
-  // update scores and render score board.
-  console.log(winner);
+function takeCards() {
+  pHand[(pHand.length - 1)].value > cHand[(cHand.length - 1)].value ? pPile.push(...pHand.splice(0, pHand.length), ...cHand.splice(0, cHand.length)) : cPile.push(...pHand.splice(0, pHand.length), ...cHand.splice(0, cHand.length));
   scores.p = pPile.length;
   scores.c = cPile.length;
   renderScores();
-  };
+  for (const [key] of Object.entries(cardEls.p)) { 
+    cardEls.p[key].className = '';
+  }
+  for (const [key] of Object.entries(cardEls.c)) { 
+    cardEls.c[key].className = '';
+  }
+  buttonEl.innerText = textLookup.button.play;
+};
+
+
+
+function handleClick(evt) {
+  if (evt.target.innerText === textLookup.button.new) return init();
+  if (evt.target.innerText === textLookup.button.play) return handleTurn();
+  if (evt.target.innerText === textLookup.button.war) return runWar();
+  if (evt.target.innerText === textLookup.button.revealLoss) return flipCards();
+  if (evt.target.innerText === textLookup.button.revealGain) return flipCards();
+  if (evt.target.innerText === textLookup.button.take) return takeCards();
+  if (evt.target.innerText === textLookup.button.give) return takeCards();
+}
+
+
 
 function runWar() {
   // the render function here will need to reference the index number of the war array to match the id of the card <div>
   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
   pHand.push(...pPile.splice(0, 4));
   cHand.push(...cPile.splice(0, 4));
-  renderCards(pHand, cardEls.p);
-  renderCards(cHand, cardEls.c);
-  if (pHand[3].value === cHand[3].value) {
+  renderCards();
+  
+  if (pHand[4].value === cHand[4].value) {
+    // I will need to update this to create more divs for the cards to show on the page.
     return runWar();
-  } else if (pHand[3].value > cHand[3].value) {
+  } else if (pHand[4].value > cHand[4].value) {
       winner = "p";  
-      pPile.push(...pHand.splice(0, 5));
-      pPile.push(...cHand.splice(0, 5));
+      buttonEl.innerText = textLookup.button.revealGain;
+      // pPile.push(...pHand.splice(0, 5));
+      // pPile.push(...cHand.splice(0, 5));
   } else {
       winner = "c";
-      cPile.push(...pHand.splice(0, 5));
-      cPile.push(...cHand.splice(0, 5));
+      buttonEl.innerText = textLookup.button.revealLoss;
+      // cPile.push(...pHand.splice(0, 5));
+      // cPile.push(...cHand.splice(0, 5));
     }
-
-    scores.p = pPile.length;
-    scores.c = cPile.length;
-    renderScores();
+    // scores.p = pPile.length;
+    // scores.c = cPile.length;
+    // renderScores();
 // maybe return a render function here? where the cards physically move to the win pile and off the board.
 };
 
@@ -200,6 +229,7 @@ function getWinner() {
   }
 };
 
+// render scores and take cards could possibly one function
 function renderScores() {
   // render the scores
   for (let score in scores) {
@@ -209,28 +239,82 @@ function renderScores() {
 
 
 
-function renderCards(hand, container) {
-
-  for (let i = 0; i <= hand.length; i++) {
-    if (i === 0 || i === hand.length) {
-    container[i].className = `card ${hand[i].face} card-container`;
-    } else {
-      container[i].className = `card back card-container`;
+function renderCards() {
+  for (let i = 0; i < pHand.length; i++) {
+    switch (i) {
+      case 0: cardEls.p[i].className = `card ${pHand[i].face} card-container`; 
+      break;
+      case 4: cardEls.p[i].className = `card ${pHand[i].face} card-container`;
+      break;
+      default: cardEls.p[i].className = `card back card-container`;
     }
-    
-    // ----> less efficient way to do the above
-    // container[i].className = ''
-    // container[i].classList.add(`card`, `${hand[i].face}`, `card-container`);
   }
-} 
+  for (let i = 0; i < cHand.length; i++) {
+    switch (i) {
+      case 0: cardEls.c[i].className = `card ${cHand[i].face} card-container`; 
+      break;
+      case 4: cardEls.c[i].className = `card ${cHand[i].face} card-container`;
+      break;
+      default: cardEls.c[i].className = `card back card-container`;
+    }
+  }
+};
+
+function flipCards() {
+  for (let i = 0; i < pHand.length; i++) {
+    if(cardEls.p[i].className === `card back card-container`) {
+      cardEls.p[i].className = `card ${pHand[i].face} card-container`;
+    }
+  }
+  for (let i = 0; i < cHand.length; i++) {
+    if(cardEls.c[i].className === `card back card-container`) {
+      cardEls.c[i].className = `card ${cHand[i].face} card-container`;
+    }
+  }
+  winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;
+};
 
 
+// // ------------- Original render cards function------------>
+// //Chris said not to use parameters in the function.
+//   // renderCards(pHand, cardEls.p);
+//   // renderCards(cHand, cardEls.c);
+// function renderCards(hand, container) {
 
+//   for (let i = 0; i < hand.length; i++) {
+//     if (i === 0 || i === hand.length) {
+//     container[i].className = `card ${hand[i].face} card-container`;
+//     } else {
+//       container[i].className = `card back card-container`;
+//     }
+    
+//     // ----> less efficient way to do the above
+//     // container[i].className = ''
+//     // container[i].classList.add(`card`, `${hand[i].face}`, `card-container`);
+//   }
+// } //------------------------------------------------------->
 
-
-
-
-
+// // ------------------- If Else renderCards() function----------------->
+// function renderCards2() {
+//   for (let i = 0; i < pHand.length; i++) {
+//     if (i === 0) {
+//       cardEls.p[i].className = `card ${pHand[i].face} card-container`; 
+//     } else if (i === 4) {
+//       cardEls.p[i].className = `card ${pHand[i].face} card-container`;
+//     } else {
+//       cardEls.p[i].className = `card back card-container`;
+//     }
+//   }
+//   for (let i = 0; i < cHand.length; i++) {
+//     if (i === 0) {
+//       cardEls.c[i].className = `card ${cHand[i].face} card-container`; 
+//     } else if (i === 4) {
+//       cardEls.c[i].className = `card ${cHand[i].face} card-container`;
+//     } else {
+//       cardEls.c[i].className = `card back card-container`;
+//     }
+//   }
+// }
 
 
 
