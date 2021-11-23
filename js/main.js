@@ -40,6 +40,7 @@ const cardEls = {
       1: document.getElementById('p-card1'),
       2: document.getElementById('p-card2'),
       3: document.getElementById('p-card3'),
+      4: document.getElementById('p-card4'),
     },
     c: {
       pile: document.getElementById('c-pile'),
@@ -47,6 +48,7 @@ const cardEls = {
       1: document.getElementById('c-card1'),
       2: document.getElementById('c-card2'),
       3: document.getElementById('c-card3'),
+      4: document.getElementById('c-card4'),
     }
   }
 
@@ -57,6 +59,9 @@ const scoreEls = {
 
   // button will change text depending on point in game
 const buttonEl = document.getElementById('button');
+
+/*----- event listeners -----*/
+buttonEl.addEventListener('click', handleTurn)
 
 /*----- functions -----*/
 function getNewShuffledDeck() {
@@ -129,9 +134,16 @@ function handleTurn(evt) {
   // these methods are not working - pausing to continue with game logic
   pHand.push(pPile.shift());
   cHand.push(cPile.shift());
+
+  renderCards(pHand, cardEls.p);
+  renderCards(cHand, cardEls.c);
   if (pHand[0].value === cHand[0].value) return runWar();
+
+  // update button text to "take cards" - this works
+  buttonEl.textContent = 'Take Cards'
+
   // update these to splice instead of spread push. could also do pHand.length instead of (0, 1) - tried this below and got an infinite loop in running war.
-  console.log(pHand)
+
   pHand[0].value > cHand[0].value ? pPile.push(...pHand.splice(0, 1), ...cHand.splice(0, 1)) : cPile.push(...pHand.splice(0, 1), ...cHand.splice(0, 1));
   // update scores and render score board.
   console.log(winner);
@@ -143,9 +155,10 @@ function handleTurn(evt) {
 function runWar() {
   // the render function here will need to reference the index number of the war array to match the id of the card <div>
   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
-  console.log("Running War")
   pHand.push(...pPile.splice(0, 4));
   cHand.push(...cPile.splice(0, 4));
+  renderCards(pHand, cardEls.p);
+  renderCards(cHand, cardEls.c);
   if (pHand[3].value === cHand[3].value) {
     return runWar();
   } else if (pHand[3].value > cHand[3].value) {
@@ -157,6 +170,7 @@ function runWar() {
       cPile.push(...pHand.splice(0, 5));
       cPile.push(...cHand.splice(0, 5));
     }
+
     scores.p = pPile.length;
     scores.c = cPile.length;
     renderScores();
@@ -180,19 +194,22 @@ function renderScores() {
   };
 };
 
-function renderCards(hand, container) {
-  for (let i = 0; i < hand.length; i++) {
-    container.innerHTML = `<div id="c-card${i} class="card ${card.face}"></div>`
 
+
+function renderCards(hand, container) {
+
+  for (let i = 0; i <= hand.length; i++) {
+    if (i === 0 || i === hand.length) {
+    container[i].className = `card ${hand[i].face} card-container`;
+    } else {
+      container[i].className = `card back card-container`;
+    }
+    
+    // ----> less efficient way to do the above
+    // container[i].className = ''
+    // container[i].classList.add(`card`, `${hand[i].face}`, `card-container`);
   }
 } 
-  // let cardsHTML = '';
-  // hand.forEach(function(card){ 
-  //   cardsHTML += `<div class="card ${card.face} id="c-card${hand[i]"></div>`;
-  // })
-
-
-
 
 
 

@@ -91,3 +91,7 @@ h1 {
     grid-column: 4 / 5;
     grid-row: 2 / 6;
 }
+
+.card {
+    padding: 0;
+}
