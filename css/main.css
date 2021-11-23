@@ -78,14 +78,14 @@ h1 {
     grid-row: 4 / 5; 
 }
 
-#p-play-cards {
+#p-hand {
     display: flex;
     flex-direction: column;
     grid-column: 3 / 4;
     grid-row: 2 / 6;
 }
 
-#c-play-cards {
+#c-hand {
     display: flex;
     flex-direction: column;
     grid-column: 4 / 5;
