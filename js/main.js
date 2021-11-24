@@ -25,9 +25,6 @@ const textLookup = {
       revealLoss: 'Reveal Losses',
       revealGain: 'Reveal Gains',
     },
-    alerts: {
-      // result: `Card ${cardRank[winner] beats ${cardRank[loser????]. The ${winner} takes ${cHand.length + pHand.length} cards.`
-    }
 }
 
 /*----- app's state (variables) -----*/
@@ -161,8 +158,12 @@ function handleTurn() {
   pHand[0].value > cHand[0].value ? winner = 'p' : winner = 'c';
   winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;
   // TO DO ------ results text content HERE o equal the value of the winner card over the loser card
+  if (winner === 'p') {
+    textEls.pWin.innerText = `You win this round! Collect both cards.` // ${pHand.length + cHand.length} 
+  } else {
+    textEls.cWin.innerText = `The computer wins this round! Surrender your card.` //${pHand.length + cHand.length}
   };
-
+};
 
 function takeCards() {
   pHand[(pHand.length - 1)].value > cHand[(cHand.length - 1)].value ? pPile.push(...pHand.splice(0, pHand.length), ...cHand.splice(0, cHand.length)) : cPile.push(...pHand.splice(0, pHand.length), ...cHand.splice(0, cHand.length));
@@ -176,6 +177,8 @@ function takeCards() {
     cardEls.c[key].className = '';
   }
   buttonEl.innerText = textLookup.button.play;
+  textEls.cWin.innerText = ''
+  textEls.pWin.innerText = ''
 };
 
 
@@ -192,40 +195,37 @@ function handleClick(evt) {
 
 
 
-function runWar() {
+function runWar(pFirstWar = [], cFirstWar = []) {
+  if (pFirstWar.length > 0) renderOldCards(pFirstWar, cFirstWar); // create this new function
+
   // the render function here will need to reference the index number of the war array to match the id of the card <div>
   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
   pHand.push(...pPile.splice(0, 4));
   cHand.push(...cPile.splice(0, 4));
   renderCards();
-  
-  if (pHand[4].value === cHand[4].value) {
-    // I will need to update this to create more divs for the cards to show on the page.
-    return runWar();
+  if (pHand[4].value === cHand[4].value) { 
+    // when someone wins I need to mkae sure these push to main piles.
+    pFirstWar.push(...pHand.splice(0, 4));
+    cFirstWar.push(...cHand.splice(0, 4));
+    return runWar(pFirstWar, cFirstWar); // maybe i make this a separate function that runs lots of wars and creates all the divs
   } else if (pHand[4].value > cHand[4].value) {
-      winner = "p";  
+      winner = 'p';
+      textEls.pWin.innerText = `You win this war! Collect all ${pHand.length + cHand.length} cards.`  
       buttonEl.innerText = textLookup.button.revealGain;
-      // pPile.push(...pHand.splice(0, 5));
-      // pPile.push(...cHand.splice(0, 5));
   } else {
-      winner = "c";
+      winner = 'c';
+      textEls.cWin.innerText = `The computer wins this war! Surrender all ${pHand.length + cHand.length} cards.`
       buttonEl.innerText = textLookup.button.revealLoss;
-      // cPile.push(...pHand.splice(0, 5));
-      // cPile.push(...cHand.splice(0, 5));
     }
-    // scores.p = pPile.length;
-    // scores.c = cPile.length;
-    // renderScores();
-// maybe return a render function here? where the cards physically move to the win pile and off the board.
 };
 
 
 // I will need to revisit this function tomorrow as I'm not sure it will wrok properly.
 function getWinner() {
   if(pPile.length > cPile.length) {
-    winner = "p";
+    winner = 'p';
   } else {
-    winner = "c";
+    winner = 'c';
   }
 };
 
@@ -242,18 +242,18 @@ function renderScores() {
 function renderCards() {
   for (let i = 0; i < pHand.length; i++) {
     switch (i) {
-      case 0: cardEls.p[i].className = `card ${pHand[i].face} card-container`; 
+      case 0: cardEls.p[i].className = `card large ${pHand[i].face} card-container`; 
       break;
-      case 4: cardEls.p[i].className = `card ${pHand[i].face} card-container`;
+      case 4: cardEls.p[i].className = `card large ${pHand[i].face} card-container`;
       break;
       default: cardEls.p[i].className = `card back card-container`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
     switch (i) {
-      case 0: cardEls.c[i].className = `card ${cHand[i].face} card-container`; 
+      case 0: cardEls.c[i].className = `card large ${cHand[i].face} card-container`; 
       break;
-      case 4: cardEls.c[i].className = `card ${cHand[i].face} card-container`;
+      case 4: cardEls.c[i].className = `card large ${cHand[i].face} card-container`;
       break;
       default: cardEls.c[i].className = `card back card-container`;
     }
