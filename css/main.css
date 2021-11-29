@@ -2,120 +2,117 @@
     define variables here like color
 } */
 
-
-body {
-    margin: 0;
-    padding: 0;
+* {
     box-sizing: border-box;
-    background-color: peachpuff;
-    height: 100vh;
     font-family: 'Outfit', sans-serif;
+}
+
+html, body {
+    background-color: peachpuff;
+    height: 100%
 
 }
 
-.grid-container {
-    margin: 10px;
-    padding: 20px;
+.game-container {
     display: grid;
     height: 100vh;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    background-color: white;
-    gap: 15px;
-    border: 1px solid black;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr;
+    /* background-color: white; */
     align-items: center;
-} 
+    justify-content: center;
+    grid-gap: 10px;
+    grid-template-areas: 
+        "pc h h h h cc"
+        "pp r ph ch m cp"
+        "pp r ph ch m cp"
+        "pp r ph ch m cp"
+        "pp r ph ch m cp"
+        "pp b ph ch m cp";
 
-/* .grid-container > * {
-    display: grid;
-    padding: 10px;
-} */
+}
 
-.title {
-    font-size: 30px;
-    grid-column: 2;
-    grid-row: 1;
+h1 {
+    grid-area: h;
+    display: flex;
+    font-size: 40px;
 }
 
 .rules {
-    grid-column: 2;
-    grid-row: 2 / 7;
-    font-size: 12px;
-    align-self: start;
+    grid-area: r;
+    font-size: 0.75rem
 }
 
 .p-count {
-    display: flex;
-    font-size: 12px;
-    grid-column: 1;
-    grid-row: 1;
+    grid-area: pc;
+
 }
 
 .c-count {
-    display: flex;
-    font-size: 12px;
-    grid-column: -1;
-    grid-row: 1;
+    grid-area: cc;
 }
-
+ 
 #p-score, #c-score {
-    font-size: 35px;
+    font-size: 40px;
 }
 
 #master-deck {
-    display: grid;
+    grid-column: 3/5;
+    grid-row: 3/6;
     margin: auto;
-    grid-column: 3 / 5;
-    grid-row: 2 / 5;
 }
 
-.p-piles {
-    display: flex;
-    grid-column: 2;
-    grid-row: 5;
+#p-pile {
+    grid-area: pp;
     margin: auto;
+    opacity: 0;
 }
-.c-piles {
-    grid-column: 5;
-    grid-row: 2;
+
+#c-pile {
+    grid-area: cp;
     margin: auto;
+    opacity: 0;
 }
 
 #p-hand {
-    grid-column: 3;
-    grid-row: 1 / 7;
-    min-width: 125px;
-    display: grid;
-    justify-self: center;
+    grid-area: ph;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+
+    
 }
 
 #c-hand {
-    grid-column: 4;
-    grid-row: 1 / 7;
-    min-width: 125px;
+    grid-area: ch;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    margin: auto;
 }
 
 #button {
-    grid-column: 3;
-    grid-row: 6;
-    align-self: end;
-}
-#run-end-game {
-    grid-column: 4;
-    grid-row: 6;
-    align-self: end;
+    grid-area: b;
+    padding: 10px;
+    width: 160px;
+    height: 75px;
+    font-size: 20px;
+    margin: auto;
+    cursor: pointer;
+    background-color:tomato;
+    color: white;
 }
 
 
-/* I added this class to the end of the cards class name for testing hover and spacing*/
-.pile {
-    margin-left: -2rem;
-}
-.pile:hover {
-    transition: 0.2s;
-    transform: translateY(-.5rem);
-    
-}
+@media only screen and (max-width: 960px) {
+    .card {
+      width:3.0em;
+      height:4.0em;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .card {
+      width:2.75em;
+      height:3.5em;
+    }

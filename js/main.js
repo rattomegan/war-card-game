@@ -35,7 +35,7 @@ const textLookup = {
 // WonPiles will need to be shuffled at some point.
 let pPile, pHand;
 let cPile, cHand;
-let scores, cardRank, winner; // will eventually be p or c
+let scores, cardRank, winner, autorun; // will eventually be p or c
 
 
 
@@ -138,11 +138,14 @@ function init() {
   cHand = [];
   pHand = [];
   winner = null;
+  autorun = false;
   renderScores();
   buttonEl.innerText = textLookup.button.play;
   // remove rules from the page
   textEls.rules.innerText = '';
   cardEls.masterDeck.className = '';
+  cardEls.piles.p.style.opacity = '100';
+  cardEls.piles.c.style.opacity = '100';
   // need to add render game board here. still need to write that function below.
 }  
 
@@ -229,6 +232,7 @@ function getWinner() {
   } else {
     winner = 'c';
   }
+  autorun = false;
 };
 
 // render scores and take cards could possibly one function
@@ -244,37 +248,47 @@ function renderScores() {
 function renderCards() {
   for (let i = 0; i < pHand.length; i++) {
     switch (i) {
-      case 0: cardEls.p[i].className = `card large ${pHand[i].face}`; 
+      case 0: cardEls.p[i].className = `card xlarge ${pHand[i].face}`; 
       break;
-      case 4: cardEls.p[i].className = `card large ${pHand[i].face}`;
+      case 4: cardEls.p[i].className = `card xlarge ${pHand[i].face}`;
       break;
-      default: cardEls.p[i].className = `card back`;
+      default: cardEls.p[i].className = `card large back`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
     switch (i) {
-      case 0: cardEls.c[i].className = `card large ${cHand[i].face}`; 
+      case 0: cardEls.c[i].className = `card xlarge ${cHand[i].face}`; 
       break;
-      case 4: cardEls.c[i].className = `card large ${cHand[i].face}`;
+      case 4: cardEls.c[i].className = `card xlarge ${cHand[i].face}`;
       break;
-      default: cardEls.c[i].className = `card back`;
+      default: cardEls.c[i].className = `card large back`;
     }
   }
 };
 
 function flipCards() {
   for (let i = 0; i < pHand.length; i++) {
-    if(cardEls.p[i].className === `card back`) {
-      cardEls.p[i].className = `card ${pHand[i].face}`;
+    if(cardEls.p[i].className === `card large back`) {
+      cardEls.p[i].className = `card large ${pHand[i].face}`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
-    if(cardEls.c[i].className === `card back`) {
-      cardEls.c[i].className = `card ${cHand[i].face}`;
+    if(cardEls.c[i].className === `card large back`) {
+      cardEls.c[i].className = `card large ${cHand[i].face}`;
     }
   }
   winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;
 };
+
+function handleAutorun() {
+  autorun = true;
+  while (autorun) {
+    handleTurn();
+    
+    
+  }
+
+}
 
 
 // // ------------- Original render cards function------------>

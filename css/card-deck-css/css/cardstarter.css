@@ -2,8 +2,8 @@
 .card {
   box-sizing: border-box;
   display: inline-block;
-  margin: 5px 5px 0px 5px;
-  cursor: pointer;
+  margin: 5px 5px 5px 5px;
+  /* cursor: pointer; */
   /* Set the card's dimensions, and size it relative to
      it's font size. */
   font-size: inherit;
