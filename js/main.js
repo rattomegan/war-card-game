@@ -62,7 +62,8 @@ const cardEls = {
     piles: {
       p: document.getElementById('p-pile'),
       c: document.getElementById('c-pile'),
-    }
+    },
+    masterDeck: document.getElementById('master-deck'),
 };
 
 const scoreEls = {
@@ -71,7 +72,7 @@ const scoreEls = {
 };
 
 const textEls = {
-  rules: document.getElementById('rules'),  
+  rules: document.querySelector('.rules'),  
   pWin: document.getElementById('p-win-message'),
   cWin: document.getElementById('c-win-message'),
 };
@@ -141,6 +142,7 @@ function init() {
   buttonEl.innerText = textLookup.button.play;
   // remove rules from the page
   textEls.rules.innerText = '';
+  cardEls.masterDeck.className = '';
   // need to add render game board here. still need to write that function below.
 }  
 
@@ -242,33 +244,33 @@ function renderScores() {
 function renderCards() {
   for (let i = 0; i < pHand.length; i++) {
     switch (i) {
-      case 0: cardEls.p[i].className = `card large ${pHand[i].face} card-container`; 
+      case 0: cardEls.p[i].className = `card large ${pHand[i].face}`; 
       break;
-      case 4: cardEls.p[i].className = `card large ${pHand[i].face} card-container`;
+      case 4: cardEls.p[i].className = `card large ${pHand[i].face}`;
       break;
-      default: cardEls.p[i].className = `card back card-container`;
+      default: cardEls.p[i].className = `card back`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
     switch (i) {
-      case 0: cardEls.c[i].className = `card large ${cHand[i].face} card-container`; 
+      case 0: cardEls.c[i].className = `card large ${cHand[i].face}`; 
       break;
-      case 4: cardEls.c[i].className = `card large ${cHand[i].face} card-container`;
+      case 4: cardEls.c[i].className = `card large ${cHand[i].face}`;
       break;
-      default: cardEls.c[i].className = `card back card-container`;
+      default: cardEls.c[i].className = `card back`;
     }
   }
 };
 
 function flipCards() {
   for (let i = 0; i < pHand.length; i++) {
-    if(cardEls.p[i].className === `card back card-container`) {
-      cardEls.p[i].className = `card ${pHand[i].face} card-container`;
+    if(cardEls.p[i].className === `card back`) {
+      cardEls.p[i].className = `card ${pHand[i].face}`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
-    if(cardEls.c[i].className === `card back card-container`) {
-      cardEls.c[i].className = `card ${cHand[i].face} card-container`;
+    if(cardEls.c[i].className === `card back`) {
+      cardEls.c[i].className = `card ${cHand[i].face}`;
     }
   }
   winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;

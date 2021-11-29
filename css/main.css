@@ -2,106 +2,120 @@
     define variables here like color
 } */
 
-* {
-    font-family: 'Outfit', sans-serif;
-    padding: 0;
-}
 
 body {
-    background-color: black;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: peachpuff;
+    height: 100vh;
+    font-family: 'Outfit', sans-serif;
+
 }
 
 .grid-container {
+    margin: 10px;
+    padding: 20px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr;
     height: 100vh;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     background-color: white;
-
-}
-
-/* will need to update this as I arrange the page. all cards are grouped in one box as they are considered one grid item. will need to create grid-item class as I reorganize */
-.grid-container > * {
-    display: flex;
+    gap: 15px;
+    border: 1px solid black;
     align-items: center;
-    justify-content: center;
-    background-color: white;
-}
+} 
 
-h1 {
-    background-color:peachpuff;
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
+/* .grid-container > * {
+    display: grid;
+    padding: 10px;
+} */
+
+.title {
     font-size: 30px;
-    /* should remove this and make the actual row a certain height  */
-    max-height: 50px; 
+    grid-column: 2;
+    grid-row: 1;
 }
 
-#rules {
-    display: flex;
-    flex-direction: column;
-    grid-column: 2 / 3;
-    grid-row: 3 / 6;
+.rules {
+    grid-column: 2;
+    grid-row: 2 / 7;
     font-size: 12px;
-
+    align-self: start;
 }
 
-#button {
-    grid-column: 2 / 3;
-    grid-row: 6 / 7; 
-}
-
-#p-score {
+.p-count {
     display: flex;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+    font-size: 12px;
+    grid-column: 1;
+    grid-row: 1;
 }
 
-#c-score {
+.c-count {
     display: flex;
-    grid-column: -1 / -2;
-    grid-row: 1 / 2;
+    font-size: 12px;
+    grid-column: -1;
+    grid-row: 1;
 }
 
-#p-pile {
-    display: flex;
-    grid-column: 1 / 2;
-    grid-row: 4 / 5; 
+#p-score, #c-score {
+    font-size: 35px;
 }
 
-#c-pile {
+#master-deck {
+    display: grid;
+    margin: auto;
+    grid-column: 3 / 5;
+    grid-row: 2 / 5;
+}
+
+.p-piles {
     display: flex;
-    grid-column: -1 / -2;
-    grid-row: 4 / 5; 
+    grid-column: 2;
+    grid-row: 5;
+    margin: auto;
+}
+.c-piles {
+    grid-column: 5;
+    grid-row: 2;
+    margin: auto;
 }
 
 #p-hand {
-    display: flex;
-    flex-direction: column;
-    grid-column: 3 / 4;
-    grid-row: 2 / 6;
+    grid-column: 3;
+    grid-row: 1 / 7;
+    min-width: 125px;
+    display: grid;
+    justify-self: center;
 }
 
 #c-hand {
+    grid-column: 4;
+    grid-row: 1 / 7;
+    min-width: 125px;
     display: flex;
     flex-direction: column;
-    grid-column: 4 / 5;
-    grid-row: 2 / 6;
+    margin: auto;
 }
 
-.card {
-    padding: 0;
+#button {
+    grid-column: 3;
+    grid-row: 6;
+    align-self: end;
+}
+#run-end-game {
+    grid-column: 4;
+    grid-row: 6;
+    align-self: end;
 }
 
-#p-win-message {
-    grid-column: 2 / 3;
-    grid-row: 4 / 5;
-}
 
-#c-win-message {
-    grid-column: 5 / 6;
-    grid-row: 4 / 5;
+/* I added this class to the end of the cards class name for testing hover and spacing*/
+.pile {
+    margin-left: -2rem;
+}
+.pile:hover {
+    transition: 0.2s;
+    transform: translateY(-.5rem);
+    
 }

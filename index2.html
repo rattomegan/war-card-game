@@ -13,32 +13,40 @@
 <body>
     <div>
         <div class="grid-container">
-            <h1>The Game of War</h1>
-            <div id="rules">
+
+            <div class="title">The Game of War</div>
+            <div class="rules">
                 <h4>The Rules:</h4>
                 <p><span> THE DEAL:</span> The deck is divided evenly, with each player receiving 26 cards</p>
-    
                 <p><span>THE PLAY:</span> Each player turns up a card at the same time and the player with the higher card takes both cards and puts them, face down, on the bottom of his stack.
-                <br>
-                If the cards are the same rank, it is War. Each player turns up three cards face down and one card face up. The player with the higher card takes both piles. If the turned-up cards are again the same rank, each player places another three cards face down and turns another card face up, the higher ranked card taking all cards played.</p>
- 
+                <br>If the cards are the same rank, it is War. Each player turns up three cards face down and one card face up. The player with the higher card takes both piles.</p>
                 <p><span>THE SCORE:</span> The game ends when one player has won all the cards.</p>
             </div>
-            <div id="master-deck" class="card xlarge back card-container"></div>
+
+            <div id="master-deck" class="card xlarge back"></div>
 
         
-
-            <div id="p-score">Card Count</div>
-            <div class="piles">
-                <div id="p-pile" class="card large back shadow"></div>
-                <div id="p-pile" class="card large back shadow"></div>
+            <div class="p-count">
+                <div id="p-score"></div>
+                <div>PLAYER <br>COUNT</div>
             </div>
+
+            <div class="c-count">
+                <div id="c-score"></div>
+                <div>COMPUTER <br>COUNT</div>
+            </div>
+
+            <div class="p-piles">
+                <div id="p-pile" class="card large back shadow pile"></div>
+                <div class="card large back shadow pile"></div>
+            </div>
+
+
+            <div class="c-piles">
+                <div id="c-pile" class="card large back"></div>
+            </div>
+
             <div id="p-win-message"></div>
-
-
-
-            <div id="c-score">Card Count</div>
-            <div id="c-pile" class="card large back card-container"></div>
             <div id="c-win-message"></div>
 
 
