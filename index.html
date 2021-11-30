@@ -6,61 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="css/card-deck-css/css/cardstarter.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/test.css" rel="stylesheet" />
     <script defer src="js/main.js"></script>
     <title>War Game</title>
 </head>
 <body>
     <div class="game-container">
+        <header>
+            <h1>The Game of War</h1>
+        </header>
 
-        <h1>The Game of War</h1>
-        <div class="p-count">
-            <div id="p-score"></div>
-            <div id="pc-text">PLAYER <br>COUNT</div>
-        </div>
-        <div class="c-count">
-            <div id="c-score"></div>
-            <div class="cc-text">COMPUTER <br>COUNT</div>
-        </div>
-
-        <div class="rules">
-            <h4>The Rules:</h4>
-            <p><span> THE DEAL:</span> The deck is divided evenly, with each player receiving 26 cards</p>
-            <p><span>THE PLAY:</span> Each player turns up a card at the same time and the player with the higher card takes both cards and puts them, face down, on the bottom of his stack.
+        <section class="rules">
+            <div>The Rules:</div>
+            <p><span> THE DEAL</span><br> The deck is divided evenly, with each player receiving 26 cards</p>
+            <p><span>THE PLAY</span><br> Each player turns up a card at the same time and the player with the higher card takes both cards and puts them, face down, on the bottom of his stack.
             <br>If the cards are the same rank, it is War. Each player turns up three cards face down and one card face up. The player with the higher card takes both piles.</p>
-            <p><span>THE SCORE:</span> The game ends when one player has won all the cards.</p>
-        </div>
+            <p><span>THE SCORE</span> <br>The game ends when one player has won all the cards.</p>
+        </section>
 
-        <div id="master-deck" class="card xlarge back card-container"></div>
+        <section class="scores">
+            <div class="p-count">
+                <div id="p-score">26</div>
+                <div id="pc-text">PLAYER <br>SCORE</div>
+            </div>
+            <div><button id="button">New Game</button></div>
+            <div class="c-count">
+                <div id="c-score">26</div>
+                <div class="cc-text">COMPUTER <br>SCORE</div>
+            </div>
 
-        <div id="p-pile" class="card xlarge back card-container"></div>
-    
-        <div id="c-pile" class="card xlarge back card-container"></div>
+        </section>
 
-        <div id="p-win-message"></div>
-        <div id="c-win-message"></div>
+        <section class="game-board">
+            <div class="column">
+                <div id="p-pile" class="card xlarge back card-container shadow"></div>
+                <div id="p-win-message"></div>
+            </div>
 
+            <div class="column">             
+                <div id="p-hand">
+                    <div id="p-card0"></div>
+                    <div id="p-card1"></div>
+                    <div id="p-card2"></div>
+                    <div id="p-card3"></div>
+                    <div id="p-card4"></div>
+                </div>
+            </div>
 
-        <div id="p-hand">
-            <div id="p-card0"></div>
-            <div id="p-card1"></div>
-            <div id="p-card2"></div>
-            <div id="p-card3"></div>
-            <div id="p-card4"></div>
-        </div>
-        <div id="c-hand">
-            <div id="c-card0"></div>
-            <div id="c-card1"></div>
-            <div id="c-card2"></div>
-            <div id="c-card3"></div>
-            <div id="c-card4"></div>
-        </div>
+            <div class="column">
+                <div id="c-hand">
+                    <div id="c-card0"></div>
+                    <div id="c-card1"></div>
+                    <div id="c-card2"></div>
+                    <div id="c-card3"></div>
+                    <div id="c-card4"></div>
+                </div>
+            </div>
 
-        
-        <button id="button">New Game</button>
+            <div class="column">
+                <div id="c-pile" class="card xlarge back card-container shadow"></div>
+                <div id="c-win-message"></div>
+            </div>
 
+         </section>       
    
     </div>   
-    <div class="display-winner fade-in-winner">Winner Here </div>
+    <!-- <div class="display-winner fade-in-winner">Winner Here </div> -->
 </body>
 </html>

@@ -1,136 +1,169 @@
-/* :root{
-    define variables here like color
-} */
-
-* {
-    box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
-}
-
-html, body {
-    background-color: peachpuff;
+body, html {
     height: 100%;
-
+    font-family: 'Outfit', sans-serif;
+    background-color: khaki;
 }
 
-.game-container {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr;
-    /* background-color: white; */
-    align-items: center;
+header {
+    display: flex;
+    width: 100%;
+    height: 75px;
+    /* background-color:turquoise; */
     justify-content: center;
-    grid-gap: 5px;
-    border: 2px solid black;
-    grid-template-areas: 
-        "pc h h h h cc"
-        "pp r ph ch m cp"
-        "pp r ph ch m cp"
-        "pp r ph ch m cp"
-        "pp r ph ch m cp"
-        "pp b ph ch m cp";
 }
 
 h1 {
-    grid-area: h;
-    display: flex;
-    font-size: 40px;
-
-    
-}
-
-.rules {
-    grid-area: r;
-    font-size: 0.75rem
-}
-
-.p-count {
-    grid-area: pc;
-    display: flex;
-    justify-content: space-around;
-    padding-bottom: 0px;
-    padding-right: 20px;
-}
-
-.c-count {
-    grid-area: cc;
-}
- 
-#p-score {
+    margin: 0;
     font-size: 60px;
-    padding-right: 10px;
-    padding-top: 11.5px;
-    padding-left: 15px;
-    
 }
 
-#pc-text {
-    display: center;
-    padding-top: 35px;
+
+/* rules section start -------- */
+.rules {
+    display: flex;
+    width: 100%;
+    /* background-color: blue; */
+    /* color: white; */
+    flex-basis: auto;
+}
+
+.rules > * {
+    padding-left: 10px;
+    padding-right: 15x;
+    margin: 10px;
+}
+
+.rules div {
+    align-self: flex-start;
+    font-size: 30px;
+    padding-top: 13px;
+}
+
+.rules p {
+    font-size: 1em;
+    padding: 15px;
+}
+
+.rules span {
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+
+
+
+/* scores section start --------- */
+/* need so much work here */
+
+.scores {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    /* background-color:greenyellow; */
+    justify-content: space-between;
     align-items: flex-end;
 }
 
-#master-deck {
-    grid-column: 3/5;
-    grid-row: 3/6;
-    margin: auto;
-}
-
-#p-pile {
-    grid-area: pp;
-    margin: auto;
+.p-count {
     opacity: 0;
+    text-align: left;
+    padding-left: 10px;
+    /* padding-bottom: 10px; */
 }
 
-#c-pile {
-    grid-area: cp;
-    margin: auto;
+#p-score {
+    opacity: 1;
+    font-size: 40px;
+    /* align-self: flex-start; */
+}
+
+.c-count {
     opacity: 0;
+    text-align: right;
+    padding-right: 10px;
+    /* padding-bottom: 10px; */
 }
 
-#p-hand {
-    grid-area: ph;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-}
-
-
-#c-hand {
-    grid-area: ch;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+#c-score {
+    opacity: 1;
+    font-size: 40px;
 }
 
 #button {
-    grid-area: b;
-    padding: 10px;
-    width: 160px;
-    height: 75px;
-    font-size: 20px;
-    margin: auto;
+    font-size: 25px;
+    padding: 5px 15px 5px 15px;
     cursor: pointer;
-    background-color:tomato;
-    color: white;
+    margin-bottom: 10px;
+    background-color:cadetblue;
+    border-radius: 4px;
 }
 
-.display-winner {
-    font-size: 50px;
-    position: relative;
-    background-size: cover;
+#button:hover {
+    transition: 0.2s;
+    transform: translateY(-.3rem);
+}
+
+
+
+
+/* game board start ---------- */
+
+.game-board {
+    display: flex;
     width: 100%;
-    height: 50%;
-    text-align: center;
-    background-color:rgba(234, 25, 14, 50%);
-    animation-name: fade-in-winner;
-    animation-duration: 3s;
+    height: 100vh;
+    margin-top: 15px;
 }
 
-@keyframes fade-in-winner {
-    from {opacity: 0;}
-    to {opacity: 1;}
+/* this is saying all items/columns are equal size and will grow/shrink at the same rate. */
+.game-board > * {
+    flex: 1 1 0px;
+}
+
+.column:last-child {
+    text-align: right;
+}
+
+#p-pile, #c-pile {
+    opacity: 0;
+}
+
+#p-hand, #c-hand {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center; 
+}
+#p-card0, #c-card0 {
+    grid-column: 1;
+}
+#p-card1, #c-card1 {
+    grid-column: 1;
+    margin-top: -100px;
+}
+#p-card2, #c-card2 {
+    grid-column: 1;
+    margin-top: -120px;
+}
+#p-card3, #c-card3 {
+    grid-column: 1;
+    margin-top: -120px;
+}
+#p-card4, #c-card4 {
+    grid-column: 1;
+    margin-top: -120px;
+}
+
+.winner-message {
+    font-size: 40px;
+    color: red;
+    text-align: center;
+    justify-content: center;
+}
+
+#p-win-message, #c-win-message {
+    font-size: 20px;
+    color: red;
+    padding-top: 15px;
 }
 
 
