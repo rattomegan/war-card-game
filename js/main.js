@@ -32,6 +32,7 @@ let scores, winner;
 // I've moved this out of the getNewShuffledDeck function and made it a let variable so it can change - this doesn't actually matter. it works as a const variable as well.
 const newShuffledDeck = [];
 
+let pHandEl, cHandEl, newPCard, newCCard;
 
 /*----- cached element references -----*/
 const cardEls = {
@@ -186,11 +187,7 @@ function runWar() {
   cHand.push(...cPile.splice(0, 4));
   renderCards();
   if (pHand[pHand.length - 1].value === cHand[cHand.length - 1].value) return runWar();
-    // when someone wins I need to make sure these push to main piles.
-    // pHand.push(...pPile.splice(0, 4));
-    // cHand.push(...cPile.splice(0, 4));
-     // maybe i make this a separate function that runs lots of wars and creates all the divs
-  if (pHand[4].value > cHand[4].value) {
+  if (pHand[pHand.length - 1].value > cHand[pHand.length - 1].value) {
       winner = 'p';
       textEls.pWin.innerText = `You win this war! Collect all ${pHand.length + cHand.length} cards.`  
       buttonEl.innerText = textLookup.button.revealGain;
@@ -201,34 +198,6 @@ function runWar() {
     }
 };
 
-// function runWar(pWar2 = [], cWar2 = []) {
-//   if (pWar2.length > 0) renderNewCards(pWar2, cWar2); // create this new function
-
-//   // the render function here will need to reference the index number of the war array to match the id of the card <div>
-//   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
-//   pHand.push(...pPile.splice(0, 4));
-//   cHand.push(...cPile.splice(0, 4));
-//   renderCards();
-//   if (pHand[4].value === cHand[4].value) { 
-//     // when someone wins I need to make sure these push to main piles.
-//     pWar2.push(...pHand.splice(0, 4));
-//     cWar2.push(...cHand.splice(0, 4));
-//     return runWar(pWar2, cWar2); // maybe i make this a separate function that runs lots of wars and creates all the divs
-//   } else if (pHand[4].value > cHand[4].value) {
-//       winner = 'p';
-//       textEls.pWin.innerText = `You win this war! Collect all ${pHand.length + cHand.length} cards.`  
-//       buttonEl.innerText = textLookup.button.revealGain;
-//   } else {
-//       winner = 'c';
-//       textEls.cWin.innerText = `The computer wins this war! Surrender all ${pHand.length + cHand.length} cards.`
-//       buttonEl.innerText = textLookup.button.revealLoss;
-//     }
-// };
-
-
-function renderOldCards (){
-
-}
 
 // I will need to revisit this function tomorrow as I'm not sure it will wrok properly.
 function getWinner() {
@@ -251,29 +220,50 @@ function renderScores() {
   };
 };
 
+
 function renderCards() {
-  if (pHand.length > 5) {
-    for (let i = pHand.length; i < pHand.length + 5; i++) {
-      let pHandEl = document.getElementById('p-hand');
-      let newCard = document.createElement('div');
-      newCard.setAttribute('id', `'p-card${i}'`)
-    }
-  }
-  for (let i = 0; i < pHand.length; i++) {
+  pHandEl = document.getElementById('p-hand');
+  pHand.forEach(function(card, i) {
     if (!(i % 4)) {
-      cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`; 
+      if(i > 4) {
+        let newPCard = document.createElement('div');
+        newPCard.setAttribute('id', `'p-card${i}'`);
+        pHandEl.append(newPCard);
+        cardEls.p[i] = newPCard;
+      }
+      cardEls.p[i].className = `card xlarge ${card.face} card-container shadow`; 
     } else { 
+      if(i > 4) {
+        let newPCard = document.createElement('div');
+        newPCard.setAttribute('id', `'p-card${i}'`)
+        pHandEl.append(newPCard);
+        cardEls.p[i] = newPCard;
+      }
       cardEls.p[i].className = `card xlarge back card-container shadow`;
     }
-  } 
-  for (let i = 0; i < cHand.length; i++) {
+  })
+  cHandEl = document.getElementById('c-hand');
+  cHand.forEach(function(card, i) { 
     if (!(i % 4)) {
-      cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`; 
+      if(i > 4) {
+        let newCCard = document.createElement('div');
+        newCCard.setAttribute('id', `'c-card${i}'`)
+        cHandEl.append(newCCard);
+        cardEls.c[i] = newCCard;
+      }
+      cardEls.c[i].className = `card xlarge ${card.face} card-container shadow`; 
     } else {
-     cardEls.c[i].className = `card xlarge back card-container shadow`;
+      if(i > 4) {
+        let newCCard = document.createElement('div');
+        newCCard.setAttribute('id', `'c-card${i}'`)
+        cHandEl.append(newCCard);
+        cardEls.c[i] = newCCard;
+      }
+      cardEls.c[i].className = `card xlarge back card-container shadow`;
     }
-  }
-};
+  })
+}
+
 
 function renderFlipCards() {
   for (let i = 0; i < pHand.length; i++) {
