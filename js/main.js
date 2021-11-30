@@ -25,10 +25,9 @@ const textLookup = {
 
 /*----- app's state (variables) -----*/
 
-// need to remove cardRank if I do not use it.
 let pPile, pHand;
 let cPile, cHand;
-let scores, cardRank, winner; 
+let scores, winner; 
 
 // I've moved this out of the getNewShuffledDeck function and made it a let variable so it can change - this doesn't actually matter. it works as a const variable as well.
 const newShuffledDeck = [];
@@ -54,7 +53,6 @@ const cardEls = {
       p: document.getElementById('p-pile'),
       c: document.getElementById('c-pile'),
     },
-    masterDeck: document.getElementById('master-deck'),
 };
 
 const scoreEls = {
@@ -105,7 +103,7 @@ function getNewShuffledDeck() {
 };
   
 
-//could probably put this whole function back inot the init function.
+//could probably put this whole function back into the init function.
 function dealDeck() {
   getNewShuffledDeck();  
   // here we are splitting the newShuffledDeck in 2 and assigning to the game piles
@@ -121,18 +119,16 @@ function init() {
     p: pPile.length,
     c: pPile.length
   }
-  cardRank = {
-    p: 0,
-    c: 0
-  }
   cHand = [];
   pHand = [];
   winner = null;
   renderScores();
+
+  // NEED TO SPLIT THIS INTO A RENDER FUNCTION
   buttonEl.innerText = textLookup.button.play;
   // remove rules from the page
   textEls.rules.innerText = '';
-  cardEls.masterDeck.className = '';
+  // cardEls.masterDeck.className = '';
   cardEls.piles.p.style.opacity = '100';
   cardEls.piles.c.style.opacity = '100';
 }  
@@ -175,28 +171,26 @@ function handleClick(evt) {
   if (evt.target.innerText === textLookup.button.new) return init();
   if (evt.target.innerText === textLookup.button.play) return handleTurn();
   if (evt.target.innerText === textLookup.button.war) return runWar();
-  if (evt.target.innerText === textLookup.button.revealLoss) return flipCards();
-  if (evt.target.innerText === textLookup.button.revealGain) return flipCards();
+  if (evt.target.innerText === textLookup.button.revealLoss) return renderFlipCards();
+  if (evt.target.innerText === textLookup.button.revealGain) return renderFlipCards();
   if (evt.target.innerText === textLookup.button.take) return takeCards();
   if (evt.target.innerText === textLookup.button.give) return takeCards();
 }
 
 
 
-function runWar(pFirstWar = [], cFirstWar = []) {
-  if (pFirstWar.length > 0) renderOldCards(pFirstWar, cFirstWar); // create this new function
-
-  // the render function here will need to reference the index number of the war array to match the id of the card <div>
+function runWar() {
+    // the render function here will need to reference the index number of the war array to match the id of the card <div>
   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
   pHand.push(...pPile.splice(0, 4));
   cHand.push(...cPile.splice(0, 4));
   renderCards();
-  if (pHand[4].value === cHand[4].value) { 
-    // when someone wins I need to mkae sure these push to main piles.
-    pFirstWar.push(...pHand.splice(0, 4));
-    cFirstWar.push(...cHand.splice(0, 4));
-    return runWar(pFirstWar, cFirstWar); // maybe i make this a separate function that runs lots of wars and creates all the divs
-  } else if (pHand[4].value > cHand[4].value) {
+  if (pHand[pHand.length - 1].value === cHand[cHand.length - 1].value) return runWar();
+    // when someone wins I need to make sure these push to main piles.
+    // pHand.push(...pPile.splice(0, 4));
+    // cHand.push(...cPile.splice(0, 4));
+     // maybe i make this a separate function that runs lots of wars and creates all the divs
+  if (pHand[4].value > cHand[4].value) {
       winner = 'p';
       textEls.pWin.innerText = `You win this war! Collect all ${pHand.length + cHand.length} cards.`  
       buttonEl.innerText = textLookup.button.revealGain;
@@ -207,6 +201,34 @@ function runWar(pFirstWar = [], cFirstWar = []) {
     }
 };
 
+// function runWar(pWar2 = [], cWar2 = []) {
+//   if (pWar2.length > 0) renderNewCards(pWar2, cWar2); // create this new function
+
+//   // the render function here will need to reference the index number of the war array to match the id of the card <div>
+//   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
+//   pHand.push(...pPile.splice(0, 4));
+//   cHand.push(...cPile.splice(0, 4));
+//   renderCards();
+//   if (pHand[4].value === cHand[4].value) { 
+//     // when someone wins I need to make sure these push to main piles.
+//     pWar2.push(...pHand.splice(0, 4));
+//     cWar2.push(...cHand.splice(0, 4));
+//     return runWar(pWar2, cWar2); // maybe i make this a separate function that runs lots of wars and creates all the divs
+//   } else if (pHand[4].value > cHand[4].value) {
+//       winner = 'p';
+//       textEls.pWin.innerText = `You win this war! Collect all ${pHand.length + cHand.length} cards.`  
+//       buttonEl.innerText = textLookup.button.revealGain;
+//   } else {
+//       winner = 'c';
+//       textEls.cWin.innerText = `The computer wins this war! Surrender all ${pHand.length + cHand.length} cards.`
+//       buttonEl.innerText = textLookup.button.revealLoss;
+//     }
+// };
+
+
+function renderOldCards (){
+
+}
 
 // I will need to revisit this function tomorrow as I'm not sure it will wrok properly.
 function getWinner() {
@@ -225,33 +247,35 @@ function renderScores() {
   // render the scores
   for (let score in scores) {
     scoreEls[score].textContent = scores[score];
+    scoreEls[score].style.opacity = '100';
   };
 };
 
-
-
 function renderCards() {
-  for (let i = 0; i < pHand.length; i++) {
-    switch (i) {
-      case 0: cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`; 
-      break;
-      case 4: cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`;
-      break;
-      default: cardEls.p[i].className = `card xlarge back card-container shadow`;
+  if (pHand.length > 5) {
+    for (let i = pHand.length; i < pHand.length + 5; i++) {
+      let pHandEl = document.getElementById('p-hand');
+      let newCard = document.createElement('div');
+      newCard.setAttribute('id', `'p-card${i}'`)
     }
   }
+  for (let i = 0; i < pHand.length; i++) {
+    if (!(i % 4)) {
+      cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`; 
+    } else { 
+      cardEls.p[i].className = `card xlarge back card-container shadow`;
+    }
+  } 
   for (let i = 0; i < cHand.length; i++) {
-    switch (i) {
-      case 0: cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`; 
-      break;
-      case 4: cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`;
-      break;
-      default: cardEls.c[i].className = `card xlarge back card-container shadow`;
+    if (!(i % 4)) {
+      cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`; 
+    } else {
+     cardEls.c[i].className = `card xlarge back card-container shadow`;
     }
   }
 };
 
-function flipCards() {
+function renderFlipCards() {
   for (let i = 0; i < pHand.length; i++) {
     if(cardEls.p[i].className === `card xlarge back card-container shadow`) {
       cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`;
@@ -265,8 +289,30 @@ function flipCards() {
   winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;
 };
 
+// // RUN WAR FUNCTION BEFORE TESTING DOUBLE WAR
+// function runWar(pFirstWar = [], cFirstWar = []) {
+//   if (pFirstWar.length > 0) renderOldCards(pFirstWar, cFirstWar); // create this new function
 
-
+//   // the render function here will need to reference the index number of the war array to match the id of the card <div>
+//   // if (pPile.length < 4 || cPile.length < 4) // send to run win scenario? and have a comparison of scores there?
+//   pHand.push(...pPile.splice(0, 4));
+//   cHand.push(...cPile.splice(0, 4));
+//   renderCards();
+//   if (pHand[4].value === cHand[4].value) { 
+//     // when someone wins I need to make sure these push to main piles.
+//     pFirstWar.push(...pHand.splice(0, 4));
+//     cFirstWar.push(...cHand.splice(0, 4));
+//     return runWar(pFirstWar, cFirstWar); // maybe i make this a separate function that runs lots of wars and creates all the divs
+//   } else if (pHand[4].value > cHand[4].value) {
+//       winner = 'p';
+//       textEls.pWin.innerText = `You win this war! Collect all ${pHand.length + cHand.length} cards.`  
+//       buttonEl.innerText = textLookup.button.revealGain;
+//   } else {
+//       winner = 'c';
+//       textEls.cWin.innerText = `The computer wins this war! Surrender all ${pHand.length + cHand.length} cards.`
+//       buttonEl.innerText = textLookup.button.revealLoss;
+//     }
+// };
 
 // // ------------- Original render cards function------------>
 // //Chris said not to use parameters in the function.
