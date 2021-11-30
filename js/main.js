@@ -216,8 +216,9 @@ function renderScores() {
   // render the scores
   for (let score in scores) {
     scoreEls[score].textContent = scores[score];
-    scoreEls[score].style.opacity = '100';
   };
+  document.querySelector('.p-count').style.opacity = '100';
+  document.querySelector('.c-count').style.opacity = '100';
 };
 
 
@@ -230,6 +231,7 @@ function renderCards() {
         newPCard.setAttribute('id', `'p-card${i}'`);
         pHandEl.append(newPCard);
         cardEls.p[i] = newPCard;
+        cardEls.p[i].style.marginTop = '-140px'
       }
       cardEls.p[i].className = `card xlarge ${card.face} card-container shadow`; 
     } else { 
@@ -238,6 +240,7 @@ function renderCards() {
         newPCard.setAttribute('id', `'p-card${i}'`)
         pHandEl.append(newPCard);
         cardEls.p[i] = newPCard;
+        cardEls.p[i].style.marginTop = '-140px'
       }
       cardEls.p[i].className = `card xlarge back card-container shadow`;
     }
@@ -250,6 +253,7 @@ function renderCards() {
         newCCard.setAttribute('id', `'c-card${i}'`)
         cHandEl.append(newCCard);
         cardEls.c[i] = newCCard;
+        cardEls.c[i].style.marginTop = '-140px'
       }
       cardEls.c[i].className = `card xlarge ${card.face} card-container shadow`; 
     } else {
@@ -258,6 +262,7 @@ function renderCards() {
         newCCard.setAttribute('id', `'c-card${i}'`)
         cHandEl.append(newCCard);
         cardEls.c[i] = newCCard;
+        cardEls.c[i].style.marginTop = '-140px'
       }
       cardEls.c[i].className = `card xlarge back card-container shadow`;
     }
