@@ -1,0 +1,142 @@
+body, html {
+    height: 100%;
+    font-family: 'Outfit', sans-serif;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    height: 75px;
+    background-color:turquoise;
+    justify-content: center;
+}
+
+
+/* rules section start -------- */
+.rules {
+    display: flex;
+    width: 100%;
+    background-color: blue;
+    color: white;
+    flex-basis: auto;
+
+}
+.rules > * {
+    padding-left: 10px;
+    padding-right: 15x;
+    margin: 10px;
+}
+.rules div {
+    align-self: center;
+    font-size: 30px;
+}
+.rules p {
+    font-size: 1em;
+}
+.rules span {
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+
+
+
+/* scores section start --------- */
+/* need so much work here */
+
+.scores {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color:greenyellow;
+    /* justify-content: space-between; */
+}
+
+#p-score {
+    opacity: 1;
+    font-size: 35px;
+    align-self: flex-start;
+}
+
+.c-count {
+    opacity: 1;
+    /* font-size: 35px; */
+    margin-left: auto;
+}
+
+#button {
+    align-self: center;
+}
+
+
+
+
+/* game board start ---------- */
+
+/* .game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+.game-board:nth-child(1) {
+    grid-area: 1 / 1 / 3 / 2; 
+}
+.game-board:nth-child(2) {
+    grid-area: 1 / 2 / 3 / 3; 
+}
+.game-board:nth-child(3) { 
+    grid-area: 1 / 3 / 3 / 4; 
+}
+.game-board:nth-child(4){ 
+    grid-area: 1 / 4 / 3 / 5; 
+} */
+
+.game-board {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-grow: 1;
+    background-color: indianred;
+}
+
+#p-hand, #c-hand {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center; 
+}
+#p-card0, #c-card0 {
+    grid-column: 1;
+}
+#p-card1, #c-card1 {
+    grid-column: 1;
+    margin-top: -100px;
+}
+#p-card2, #c-card2 {
+    grid-column: 1;
+    margin-top: -100px;
+}
+#p-card3, #c-card3 {
+    grid-column: 1;
+    margin-top: -100px;
+}
+#p-card4, #c-card4 {
+    grid-column: 1;
+    margin-top: -100px;
+}
+
+@media only screen and (max-width: 960px) {
+    .card {
+      width:3.0em;
+      height:4.0em;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .card {
+      width:2.75em;
+      height:3.5em;
+    }
+}

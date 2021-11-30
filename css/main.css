@@ -9,7 +9,7 @@
 
 html, body {
     background-color: peachpuff;
-    height: 100%
+    height: 100%;
 
 }
 
@@ -21,7 +21,8 @@ html, body {
     /* background-color: white; */
     align-items: center;
     justify-content: center;
-    grid-gap: 10px;
+    grid-gap: 5px;
+    border: 2px solid black;
     grid-template-areas: 
         "pc h h h h cc"
         "pp r ph ch m cp"
@@ -29,13 +30,14 @@ html, body {
         "pp r ph ch m cp"
         "pp r ph ch m cp"
         "pp b ph ch m cp";
-
 }
 
 h1 {
     grid-area: h;
     display: flex;
     font-size: 40px;
+
+    
 }
 
 .rules {
@@ -45,15 +47,28 @@ h1 {
 
 .p-count {
     grid-area: pc;
-
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 0px;
+    padding-right: 20px;
 }
 
 .c-count {
     grid-area: cc;
 }
  
-#p-score, #c-score {
-    font-size: 40px;
+#p-score {
+    font-size: 60px;
+    padding-right: 10px;
+    padding-top: 11.5px;
+    padding-left: 15px;
+    
+}
+
+#pc-text {
+    display: center;
+    padding-top: 35px;
+    align-items: flex-end;
 }
 
 #master-deck {
@@ -76,13 +91,11 @@ h1 {
 
 #p-hand {
     grid-area: ph;
-    align-content: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    height: max-content;
-
-    
 }
+
 
 #c-hand {
     grid-area: ch;
@@ -103,6 +116,23 @@ h1 {
     color: white;
 }
 
+.display-winner {
+    font-size: 50px;
+    position: relative;
+    background-size: cover;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    background-color:rgba(234, 25, 14, 50%);
+    animation-name: fade-in-winner;
+    animation-duration: 3s;
+}
+
+@keyframes fade-in-winner {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 
 @media only screen and (max-width: 960px) {
     .card {
@@ -116,3 +146,4 @@ h1 {
       width:2.75em;
       height:3.5em;
     }
+}

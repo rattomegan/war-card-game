@@ -16,11 +16,11 @@
         <h1>The Game of War</h1>
         <div class="p-count">
             <div id="p-score"></div>
-            <div>PLAYER <br>COUNT</div>
+            <div id="pc-text">PLAYER <br>COUNT</div>
         </div>
         <div class="c-count">
             <div id="c-score"></div>
-            <div>COMPUTER <br>COUNT</div>
+            <div class="cc-text">COMPUTER <br>COUNT</div>
         </div>
 
         <div class="rules">
@@ -31,11 +31,11 @@
             <p><span>THE SCORE:</span> The game ends when one player has won all the cards.</p>
         </div>
 
-        <div id="master-deck" class="card xlarge back-red"></div>
+        <div id="master-deck" class="card xlarge back card-container"></div>
 
-        <div id="p-pile" class="card xlarge back"></div>
+        <div id="p-pile" class="card xlarge back card-container"></div>
     
-        <div id="c-pile" class="card xlarge back"></div>
+        <div id="c-pile" class="card xlarge back card-container"></div>
 
         <div id="p-win-message"></div>
         <div id="c-win-message"></div>
@@ -58,7 +58,9 @@
 
         
         <button id="button">New Game</button>
-    
+
+   
     </div>   
+    <div class="display-winner fade-in-winner">Winner Here </div>
 </body>
 </html>
