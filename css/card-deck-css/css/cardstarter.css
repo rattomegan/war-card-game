@@ -12,7 +12,7 @@
   /* Add a default background color and border. */
   background-color: #fff;
   border-radius: 0.20em;
-  border: 1px solid #c3c3c3;
+  /* border: 1px solid #c3c3c3; */
   /* Scale and set the background settings. */
   background-repeat: no-repeat;
   background-position: center center;

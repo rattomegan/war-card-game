@@ -233,33 +233,33 @@ function renderScores() {
 function renderCards() {
   for (let i = 0; i < pHand.length; i++) {
     switch (i) {
-      case 0: cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container`; 
+      case 0: cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`; 
       break;
-      case 4: cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container`;
+      case 4: cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`;
       break;
-      default: cardEls.p[i].className = `card xlarge back card-container`;
+      default: cardEls.p[i].className = `card xlarge back card-container shadow`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
     switch (i) {
-      case 0: cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container`; 
+      case 0: cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`; 
       break;
-      case 4: cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container`;
+      case 4: cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`;
       break;
-      default: cardEls.c[i].className = `card xlarge back card-container`;
+      default: cardEls.c[i].className = `card xlarge back card-container shadow`;
     }
   }
 };
 
 function flipCards() {
   for (let i = 0; i < pHand.length; i++) {
-    if(cardEls.p[i].className === `card xlarge back card-container`) {
-      cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container`;
+    if(cardEls.p[i].className === `card xlarge back card-container shadow`) {
+      cardEls.p[i].className = `card xlarge ${pHand[i].face} card-container shadow`;
     }
   }
   for (let i = 0; i < cHand.length; i++) {
-    if(cardEls.c[i].className === `card xlarge back card-container`) {
-      cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container`;
+    if(cardEls.c[i].className === `card xlarge back card-container shadow`) {
+      cardEls.c[i].className = `card xlarge ${cHand[i].face} card-container shadow`;
     }
   }
   winner === 'p' ? buttonEl.textContent = textLookup.button.take : buttonEl.textContent = textLookup.button.give;

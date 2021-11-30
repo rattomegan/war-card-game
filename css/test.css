@@ -1,6 +1,7 @@
 body, html {
     height: 100%;
     font-family: 'Outfit', sans-serif;
+    background-color: khaki;
 }
 
 header {
@@ -9,6 +10,11 @@ header {
     height: 75px;
     background-color:turquoise;
     justify-content: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 60px;
 }
 
 
@@ -27,8 +33,9 @@ header {
     margin: 10px;
 }
 .rules div {
-    align-self: center;
+    align-self: flex-start;
     font-size: 30px;
+
 }
 .rules p {
     font-size: 1em;
@@ -49,23 +56,41 @@ header {
     width: 100%;
     height: 100px;
     background-color:greenyellow;
-    /* justify-content: space-between; */
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.p-count {
+    opacity: 1;
+    text-align: left;
+    padding-left: 10px;
+    /* padding-bottom: 10px; */
 }
 
 #p-score {
     opacity: 1;
-    font-size: 35px;
-    align-self: flex-start;
+    font-size: 40px;
+    /* align-self: flex-start; */
 }
 
 .c-count {
     opacity: 1;
-    /* font-size: 35px; */
-    margin-left: auto;
+    text-align: right;
+    padding-right: 10px;
+    /* padding-bottom: 10px; */
+}
+
+#c-score {
+    opacity: 1;
+    font-size: 40px;
 }
 
 #button {
-    align-self: center;
+    font-size: 25px;
+    padding: 5px 15px 5px 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background-color:pink;
 }
 
 
@@ -97,9 +122,11 @@ header {
 .game-board {
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    flex-grow: 1;
-    background-color: indianred;
+}
+
+/* this is saying all items/columns are equal size and will grow/shrink at the same rate. */
+.game-board > * {
+    flex: 1 1 0px;
 }
 
 #p-hand, #c-hand {
@@ -126,6 +153,8 @@ header {
     grid-column: 1;
     margin-top: -100px;
 }
+
+
 
 @media only screen and (max-width: 960px) {
     .card {
