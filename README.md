@@ -35,5 +35,6 @@ Click the "New Game" button to start. The entire game is controlled by the same 
 - more interaction than just a button
 - animations for the card plays and flips
 - player and computer card stacks based on score
+- an autorun button that will play the game until the end for you
 
 
