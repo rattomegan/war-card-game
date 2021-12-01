@@ -94,8 +94,9 @@ h1 {
     padding: 5px 15px 5px 15px;
     cursor: pointer;
     margin-bottom: 10px;
-    background-color:cadetblue;
+    background-color:sandybrown;
     border-radius: 4px;
+    min-width: 300px;
 }
 
 #button:hover {
@@ -142,15 +143,15 @@ h1 {
 }
 #p-card2, #c-card2 {
     grid-column: 1;
-    margin-top: -120px;
+    margin-top: -125px;
 }
 #p-card3, #c-card3 {
     grid-column: 1;
-    margin-top: -120px;
+    margin-top: -125px;
 }
 #p-card4, #c-card4 {
     grid-column: 1;
-    margin-top: -120px;
+    margin-top: -125px;
 }
 
 .winner-message {
@@ -169,14 +170,16 @@ h1 {
 
 @media only screen and (max-width: 960px) {
     .card {
-      width:3.0em;
-      height:4.0em;
+      width:2.5em;
+      height:3.4375em;
     }
   }
 
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
     .card {
-      width:2.75em;
+      width:2.55em;
       height:3.5em;
     }
 }
+
+
