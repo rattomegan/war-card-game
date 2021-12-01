@@ -13,6 +13,8 @@ This is the card game of war. It is single player vs the computer with a simple 
 
 <img src="https://i.imgur.com/B4eQOIu.png" width="700">
 
+<img src="https://i.imgur.com/BpcUs7J.png" width="700">
+
 
 ## Technologies Used
 
