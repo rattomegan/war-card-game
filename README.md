@@ -5,15 +5,15 @@ This is the card game of war. It is single player vs the computer with a simple 
 
 ## The Game in Action
 
-<img src="https://i.imgur.com/i9YazED.png" width="700">
+<img src="https://i.imgur.com/i9YazED.png" width="350">
 
-<img src="https://i.imgur.com/vLvl5m0.png" width="700">
+<img src="https://i.imgur.com/vLvl5m0.png" width="350">
 
-<img src="https://i.imgur.com/12BvYQ4.png" width="700">
+<img src="https://i.imgur.com/12BvYQ4.png" width="350">
 
-<img src="https://i.imgur.com/B4eQOIu.png" width="700">
+<img src="https://i.imgur.com/B4eQOIu.png" width="350">
 
-<img src="https://i.imgur.com/BpcUs7J.png" width="700">
+<img src="https://i.imgur.com/BpcUs7J.png" width="350">
 
 
 ## Technologies Used
