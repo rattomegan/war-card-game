@@ -121,7 +121,6 @@ function init() {
 }
 
 function handleTurn() {
-	if (pPile.length === 0 || cPile.length === 0) return getWinner();
 	pHand.push(pPile.shift());
 	cHand.push(cPile.shift());
 	renderCards();
@@ -153,6 +152,7 @@ function takeCards() {
 	buttonEl.innerText = textLookup.button.play;
 	textEls.cWin.innerText = '';
 	textEls.pWin.innerText = '';
+	if (pPile.length === 0 || cPile.length === 0) return renderScores(), getWinner();
 };
 
 
@@ -191,7 +191,7 @@ function getWinner() {
 		winner = 'p';
 		cardEls.piles.c.style.opacity = '0';
 		textEls.rules.classList.add('winner-message');
-		textEls.rules.innerHTML = `YOU WIN! <br> Can't believe you made it to the end of this game.`;
+		textEls.rules.innerHTML = `YOU WIN! <br> And you made it to the end of this game.`;
 		buttonEl.innerText = 'Game Over. No reset because why would you want to.';
 		buttonEl.style.fontSize = '16px';
 	} else {
