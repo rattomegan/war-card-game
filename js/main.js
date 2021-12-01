@@ -80,7 +80,7 @@ function buildMasterDeck() {
 		});
 	});
 	return deck;
-}
+};
 
 function getNewShuffledDeck() {
 	// Create a copy of the masterDeck (leave masterDeck untouched!)
@@ -94,8 +94,6 @@ function getNewShuffledDeck() {
 	return newShuffledDeck;
 };
   
-
-
 function dealDeck() {
 	getNewShuffledDeck();
 	// here we are splitting the newShuffledDeck in 2 and assigning to the game piles
@@ -118,7 +116,7 @@ function init() {
 	textEls.rules.innerText = '';
 	cardEls.piles.p.style.opacity = '100';
 	cardEls.piles.c.style.opacity = '100';
-}
+};
 
 function handleTurn() {
 	pHand.push(pPile.shift());
@@ -155,7 +153,6 @@ function takeCards() {
 	if (pPile.length === 0 || cPile.length === 0) return renderScores(), getWinner();
 };
 
-
 function handleClick(evt) {
 	if (evt.target.innerText === textLookup.button.new) return init();
 	if (evt.target.innerText === textLookup.button.play) return handleTurn();
@@ -165,8 +162,6 @@ function handleClick(evt) {
 	if (evt.target.innerText === textLookup.button.take) return takeCards();
 	if (evt.target.innerText === textLookup.button.give) return takeCards();
 };
-
-
 
 function runWar() {
 	if (pPile.length < 4 || cPile.length < 4) return getWinner();
@@ -214,7 +209,6 @@ function renderScores() {
 	document.querySelector('.c-count').style.opacity = '100';
 };
 
-
 function renderCards() {
 	pHandEl = document.getElementById('p-hand');
 	pHand.forEach(function(card, i) {
@@ -261,7 +255,6 @@ function renderCards() {
 		};
 	});
 };
-
 
 function renderFlipCards() {
 	for (let i = 0; i < pHand.length; i++) {
